@@ -1,4 +1,4 @@
-import Image
+from PIL import Image
 from random import randint
 import numpy
 import sys
@@ -21,6 +21,10 @@ for i in range(im.size[0]):
 		r[i].append(rgbPerPixel[0])
 		g[i].append(rgbPerPixel[1])
 		b[i].append(rgbPerPixel[2])
+
+r = numpy.array(r)
+g = numpy.array(g)
+b = numpy.array(b)
 
 m = im.size[0]
 n = im.size[1]

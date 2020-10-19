@@ -1,8 +1,9 @@
-import Image
 from random import randint
 import numpy
 import sys
 from helper import *
+from PIL import Image
+
 
 im = Image.open('input/' + sys.argv[1])
 pix = im.load()
@@ -21,13 +22,22 @@ for i in range(im.size[0]):
 		g[i].append(rgbPerPixel[1])
 		b[i].append(rgbPerPixel[2])
 
+r = numpy.array(r)
+g = numpy.array(g)
+b = numpy.array(b)
+
+
 m = im.size[0]
 n = im.size[1]
+
+#todo get keys to proper sizes, have them be similar
 
 # Vectors Kr and Kc
 alpha = 8
 Kr = [randint(0,pow(2,alpha)-1) for i in range(m)]
 Kc = [randint(0,pow(2,alpha)-1) for i in range(n)]
+
+
 ITER_MAX = 1
 
 print('Vector Kr : ', Kr)
@@ -77,8 +87,10 @@ for iterations in range(ITER_MAX):
 		rModulus = rTotalSum % 2
 		gModulus = gTotalSum % 2
 		bModulus = bTotalSum % 2
+		#if sum of red values is even
 		if(rModulus==0):
 			upshift(r,i,Kc[i])
+		#if sum of red values is odd
 		else:
 			downshift(r,i,Kc[i])
 		if(gModulus==0):
@@ -89,6 +101,9 @@ for iterations in range(ITER_MAX):
 			upshift(b,i,Kc[i])
 		else:
 			downshift(b,i,Kc[i])
+
+	#todo we can shift here instead, can use numpy sum and roll
+	
 	# For each row
 	for i in range(m):
 		for j in range(n):

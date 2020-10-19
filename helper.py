@@ -1,24 +1,12 @@
-import numpy
+import numpy as np
 
 def upshift(a,index,n):
-    col = []
-    for j in range(len(a)):
-        col.append(a[j][index])
-    shiftCol = numpy.roll(col,-n)
-    for i in range(len(a)):
-        for j in range(len(a[0])):
-            if(j==index):
-                a[i][j] = shiftCol[i]
+    #upshift column 
+    a[:, index] = np.roll(a[:,index],-n)
 
 def downshift(a,index,n):
-    col = []
-    for j in range(len(a)):
-        col.append(a[j][index])
-    shiftCol = numpy.roll(col,n)
-    for i in range(len(a)):
-        for j in range(len(a[0])):
-            if(j==index):
-                a[i][j] = shiftCol[i]
+    #downshift column 
+    a[:, index] = np.roll(a[:,index],n)
 
 def rotate180(n):
     bits = "{0:b}".format(n)
